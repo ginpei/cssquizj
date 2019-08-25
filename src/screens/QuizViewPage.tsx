@@ -85,8 +85,9 @@ const QuizViewPage: FC<Props> = (props) => {
   const options: FourChoices = shuffleCandidates(quiz);
 
   const onAnswerClick = (option: string) => {
-    setSelected(option);
-    console.log('# option', option);
+    if (!selected) {
+      setSelected(option);
+    }
   };
 
   return (
