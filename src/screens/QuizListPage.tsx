@@ -2,15 +2,6 @@ import React, { FC, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { dummyQuizzes, Quiz } from '../models/Quiz';
 
-const QuizView: FC<{ quiz: Quiz }> = (props) => {
-  const { quiz } = props;
-  return (
-    <div id="QuizView">
-      {quiz.question}
-    </div>
-  );
-};
-
 const QuizListPage: FC = () => {
   const [quizLoaded, setQuizLoaded] = useState(false);
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
