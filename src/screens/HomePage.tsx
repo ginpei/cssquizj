@@ -30,6 +30,12 @@ const HomePage: FC = () => {
               ログアウト
             </button>
           </p>
+          <hr/>
+          <ul>
+            <li>
+              <Link to="/quizzes/new">新規作成</Link>
+            </li>
+          </ul>
         </div>
       ) : (
         <div>
