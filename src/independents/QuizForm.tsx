@@ -37,6 +37,8 @@ const QuizForm: FC<Prop> = (props) => {
         candidates[1] || '',
         candidates[2] || '',
       ];
+    } else if (name === 'explanation') {
+      updatedQuiz.explanation = value;
     } else {
       throw new Error(`Unknown name "${name}"`);
     }
@@ -72,6 +74,14 @@ const QuizForm: FC<Prop> = (props) => {
           name="candidates"
           onChange={onValueChange}
           value={quiz.candidates}
+        ></FormText>
+      </p>
+      <p>
+        <FormLabel htmlFor="explanation">解説</FormLabel>
+        <FormText
+          name="explanation"
+          onChange={onValueChange}
+          value={quiz.explanation}
         ></FormText>
       </p>
       <p>

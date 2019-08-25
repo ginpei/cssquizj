@@ -119,12 +119,14 @@ const QuizViewPage: FC<Props> = (props) => {
                   🥳
                 </span>
               </p>
+              <p>{quiz.explanation}</p>
             </div>
           ) : (
             <div>
               <h2>まちがい</h2>
               <p>正解は：</p>
               <p>{quiz.answer}</p>
+              <p>{quiz.explanation}</p>
             </div>
           )}
         </>
