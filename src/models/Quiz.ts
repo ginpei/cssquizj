@@ -6,6 +6,8 @@ export type Quiz = {
   type: 'four-choice-question';
 };
 
+export type FourChoices = [string, string, string, string];
+
 export const emptyQuiz: Readonly<Quiz> = {
   answer: '',
   candidates: ['', '', ''],
@@ -30,3 +32,14 @@ export const dummyQuizzes: Quiz[] = [
     type: 'four-choice-question',
   },
 ];
+
+export function shuffleCandidates(quiz: Quiz): FourChoices {
+  // TODO shuffle
+  const choices: FourChoices = [
+    quiz.answer,
+    quiz.candidates[0],
+    quiz.candidates[1],
+    quiz.candidates[2],
+  ];
+  return choices
+}
