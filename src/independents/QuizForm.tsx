@@ -71,7 +71,7 @@ const QuizForm: FC<Prop> = (props) => {
         <FormText
           name="candidates"
           onChange={onValueChange}
-          value={quiz.answer}
+          value={quiz.candidates}
         ></FormText>
       </p>
       <p>
