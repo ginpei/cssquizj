@@ -5,6 +5,7 @@ import { appHistory } from './misc';
 import HomePage from './screens/HomePage';
 import LoginPage from './screens/LoginPage';
 import QuizCreatePage from './screens/QuizCreatePage';
+import QuizListPage from './screens/QuizListPage';
 
 // TODO move to file
 const Loading: React.FC = () => (
@@ -36,6 +37,7 @@ const App: React.FC = () => {
       <Switch>
         <Route exact={true} path="/" component={HomePage}/>
         <Route exact={true} path="/login" component={LoginPage}/>
+        <Route exact={true} path="/quizzes/" component={QuizListPage}/>
         <Route exact={true} path="/quizzes/new" component={QuizCreatePage}/>
         <Route component={NotFoundPage}/>
       </Switch>

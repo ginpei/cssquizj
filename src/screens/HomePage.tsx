@@ -33,6 +33,9 @@ const HomePage: FC = () => {
           <hr/>
           <ul>
             <li>
+              <Link to="/quizzes/">一覧</Link>
+            </li>
+            <li>
               <Link to="/quizzes/new">新規作成</Link>
             </li>
           </ul>
@@ -40,6 +43,12 @@ const HomePage: FC = () => {
       ) : (
         <div>
           <Link to="/login">ログイン</Link>
+          <hr/>
+          <ul>
+            <li>
+              <Link to="/quizzes/">一覧</Link>
+            </li>
+          </ul>
         </div>
       )}
     </div>
