@@ -1,0 +1,41 @@
+import * as firebaseui from 'firebaseui';
+import React, { FC, useEffect, useState } from 'react';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import firebase from '../middleware/firebase';
+
+const uiConfig: firebaseui.auth.Config = {
+  credentialHelper: firebaseui.auth.CredentialHelper.NONE, // disable AccountChooser.com
+  // privacyPolicyUrl: () => appHistory.push('/privacy'),
+  signInOptions: [
+    firebase.auth.GithubAuthProvider.PROVIDER_ID,
+    // firebase.auth.EmailAuthProvider.PROVIDER_ID,
+  ],
+  signInSuccessUrl: '/',
+  // tosUrl: () => appHistory.push('/terms'),
+};
+
+const LoginPage: FC = () => {
+  const auth = firebase.auth();
+
+  const [loggedIn, setLoggedIn] = useState(Boolean(auth.currentUser));
+
+  useEffect(() => auth.onAuthStateChanged((user) => {
+    setLoggedIn(Boolean(user));
+  }), [auth]);
+
+  if (loggedIn) {
+    return <div />;
+  }
+
+  return (
+    <div id="LoginPage">
+      <h2>ログイン</h2>
+      <StyledFirebaseAuth
+        firebaseAuth={auth}
+        uiConfig={uiConfig}
+      />
+    </div>
+  );
+};
+
+export default LoginPage;
