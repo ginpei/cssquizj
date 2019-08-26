@@ -108,9 +108,9 @@ function createDataFromQuiz(user: firebase.User, quiz: Quiz) {
     question: quiz.question,
     type: quiz.type,
     userId: user.uid,
-    wrongAnswers1: quiz.wrongAnswers[0] || '',
-    wrongAnswers2: quiz.wrongAnswers[1] || '',
-    wrongAnswers3: quiz.wrongAnswers[2] || '',
+    wrongAnswer1: quiz.wrongAnswers[0] || '',
+    wrongAnswer2: quiz.wrongAnswers[1] || '',
+    wrongAnswer3: quiz.wrongAnswers[2] || '',
   };
   return data;
 }
