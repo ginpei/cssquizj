@@ -8,11 +8,11 @@ const Hero = styled.div`
   border-radius: 0.2rem;
   color: var(--color-theme-fg);
   display: flex;
+  font-size: 3rem;
+  font-weight: bold;
   justify-content: space-between;
   margin: 1rem 0;
   padding: 1rem;
-  font-size: 3rem;
-  font-weight: bold;
 `;
 
 const HomePage: FC = () => {
