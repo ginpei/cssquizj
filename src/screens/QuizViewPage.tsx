@@ -25,7 +25,8 @@ const AnswerOptionOuter = styled.span.attrs({
   height: 100px;
   justify-content: center;
   margin: 0.5rem;
-  width: 100px;
+  width: calc(50% - 1rem);
+  box-sizing: border-box;
   background-color: #f9f9f9;
 `;
 
