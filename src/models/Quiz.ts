@@ -1,18 +1,18 @@
 export type Quiz = {
   answer: string;
-  wrongAnswers: string[];
   explanation: string;
-  key: string;
+  id: string;
   ownerId: string;
   question: string;
   type: 'four-choice-question';
+  wrongAnswers: string[];
 };
 
 
 export const emptyQuiz: Readonly<Quiz> = {
   answer: '',
   explanation: '',
-  key: '',
+  id: '',
   ownerId: '',
   question: '',
   type: 'four-choice-question',
@@ -23,7 +23,7 @@ export const dummyQuizzes: Quiz[] = [
   {
     answer: 'red',
     explanation: 'RGBだしねー',
-    key: 'aaa',
+    id: 'aaa',
     ownerId: 'aSe7VDZNNnb44haXH94McBrPtVu2',
     question: '青くないのは？',
     type: 'four-choice-question',
@@ -32,7 +32,7 @@ export const dummyQuizzes: Quiz[] = [
   {
     answer: 'font-size',
     explanation: 'fontのsize',
-    key: 'bbb',
+    id: 'bbb',
     ownerId: 'aSe7VDZNNnb44haXH94McBrPtVu2',
     question: '文字の大きさ？',
     type: 'four-choice-question',

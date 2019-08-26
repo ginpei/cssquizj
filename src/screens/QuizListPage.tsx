@@ -29,8 +29,8 @@ const QuizListPage: FC = () => {
       {quizLoaded ? (
         <ul>
           {quizzes.map((quiz) => (
-            <li key={quiz.key}>
-              <Link to={`/quizzes/${quiz.key}`}>
+            <li key={quiz.id}>
+              <Link to={`/quizzes/${quiz.id}`}>
                 {quiz.question}
               </Link>
             </li>

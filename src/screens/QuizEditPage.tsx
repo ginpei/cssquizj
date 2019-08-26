@@ -30,7 +30,7 @@ const QuizEditPage: FC<Props> = (props) => {
   // load quiz
   useEffect(() => {
     const tm = window.setTimeout(() => {
-      setQuiz(dummyQuizzes.find((v) => v.key === key) || null);
+      setQuiz(dummyQuizzes.find((v) => v.id === key) || null);
       setQuizLoaded(true);
     }, 100);
     return () => window.clearTimeout(tm);
@@ -69,7 +69,7 @@ const QuizEditPage: FC<Props> = (props) => {
   return (
     <BasicLayout className="QuizEditPage">
       <p>
-        <Link to={`/quizzes/${quiz.key}`}>← クイズ</Link>
+        <Link to={`/quizzes/${quiz.id}`}>← クイズ</Link>
       </p>
       <h2>編集</h2>
       <QuizForm

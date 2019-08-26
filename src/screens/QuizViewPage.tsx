@@ -74,7 +74,7 @@ const QuizViewPage: FC<Props> = (props) => {
     setSelected(null);
 
     const tm = window.setTimeout(() => {
-      setQuiz(dummyQuizzes.find((v) => v.key === key) || null);
+      setQuiz(dummyQuizzes.find((v) => v.id === key) || null);
       setQuizLoaded(true);
     }, 100);
     return () => window.clearTimeout(tm);
@@ -118,7 +118,7 @@ const QuizViewPage: FC<Props> = (props) => {
         {isOwner && (
           <>
             {' | '}
-            <Link to={`/quizzes/${quiz.key}/edit`}>編集</Link>
+            <Link to={`/quizzes/${quiz.id}/edit`}>編集</Link>
           </>
         )}
       </p>
