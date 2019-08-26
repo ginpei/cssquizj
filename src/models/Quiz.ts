@@ -127,7 +127,7 @@ export function validateQuiz(quiz: Quiz): string[] {
   }
 
   if (
-    quiz.wrongAnswers.length !== 3
+    (new Set(quiz.wrongAnswers)).size !== 3
     || quiz.wrongAnswers.some((v) => !v)
   ) {
     errors.push('wrongAnswers');
