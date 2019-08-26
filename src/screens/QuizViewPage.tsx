@@ -1,7 +1,8 @@
 import React, { FC, useState, useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { dummyQuizzes, Quiz, FourChoices, shuffleCandidates } from '../models/Quiz';
+import { dummyQuizzes, Quiz, FourChoices, shuffleCandidates, isQuizOwner } from '../models/Quiz';
 import styled from 'styled-components';
+import firebase from '../middleware/firebase';
 
 type AnswerOptionProps = {
   onClick: (option: string) => void;
@@ -52,6 +53,7 @@ type Props = RouteComponentProps<PageParams>;
 
 const QuizViewPage: FC<Props> = (props) => {
   const key = props.match.params.id;
+  const user = firebase.auth().currentUser;
 
   const [quizLoaded, setQuizLoaded] = useState(false);
   const [quiz, setQuiz] = useState<Quiz | null>(null);
@@ -60,6 +62,8 @@ const QuizViewPage: FC<Props> = (props) => {
   const correct = (quiz && selected !== null)
     ? selected === quiz.answer
     : false;
+
+  const isOwner = quiz && user && isQuizOwner(quiz, user);
 
   useEffect(() => {
     const tm = window.setTimeout(() => {
@@ -94,6 +98,12 @@ const QuizViewPage: FC<Props> = (props) => {
     <div id="QuizViewPage">
       <p>
         <Link to="/quizzes/">← 一覧</Link>
+        {isOwner && (
+          <>
+            {' | '}
+            <Link to={`/quizzes/${quiz.key}/edit`}>編集</Link>
+          </>
+        )}
       </p>
       <h2>{quiz.question}</h2>
       <div>

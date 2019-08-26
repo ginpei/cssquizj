@@ -5,6 +5,7 @@ import { appHistory } from './misc';
 import HomePage from './screens/HomePage';
 import LoginPage from './screens/LoginPage';
 import QuizCreatePage from './screens/QuizCreatePage';
+import QuizEditPage from './screens/QuizEditPage';
 import QuizListPage from './screens/QuizListPage';
 import QuizViewPage from './screens/QuizViewPage';
 
@@ -41,6 +42,7 @@ const App: React.FC = () => {
         <Route exact={true} path="/quizzes/" component={QuizListPage}/>
         <Route exact={true} path="/quizzes/new" component={QuizCreatePage}/>
         <Route exact={true} path="/quizzes/:id" component={QuizViewPage}/>
+        <Route exact={true} path="/quizzes/:id/edit" component={QuizEditPage}/>
         <Route component={NotFoundPage}/>
       </Switch>
     </Router>
