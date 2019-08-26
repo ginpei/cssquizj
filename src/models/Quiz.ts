@@ -8,7 +8,6 @@ export type Quiz = {
   type: 'four-choice-question';
 };
 
-export type FourChoices = [string, string, string, string];
 
 export const emptyQuiz: Readonly<Quiz> = {
   answer: '',
@@ -41,15 +40,22 @@ export const dummyQuizzes: Quiz[] = [
   },
 ];
 
-export function shuffleCandidates(quiz: Quiz): FourChoices {
-  // TODO shuffle
-  const choices: FourChoices = [
+export function shuffleCandidates(quiz: Quiz): string[] {
+  const choices: string[] = [
     quiz.answer,
     quiz.candidates[0],
     quiz.candidates[1],
     quiz.candidates[2],
   ];
-  return choices
+
+  const shuffled: string[] = [];
+  while (choices.length) {
+    const index = Math.floor(Math.random() * choices.length);
+    const [option] = choices.splice(index, 1);
+    shuffled.push(option);
+  }
+
+  return shuffled;
 }
 
 export function isQuizOwner(quiz: Quiz, user: firebase.User): boolean {

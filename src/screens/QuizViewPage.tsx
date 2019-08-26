@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import BasicLayout from '../complexes/BasicLayout';
 import firebase from '../middleware/firebase';
 import { moveToRandomQuiz } from '../misc';
-import { dummyQuizzes, FourChoices, isQuizOwner, Quiz, shuffleCandidates } from '../models/Quiz';
+import { dummyQuizzes, isQuizOwner, Quiz, shuffleCandidates } from '../models/Quiz';
 
 type AnswerOptionProps = {
   onClick: (option: string) => void;
@@ -59,6 +59,7 @@ const QuizViewPage: FC<Props> = (props) => {
 
   const [quizLoaded, setQuizLoaded] = useState(false);
   const [quiz, setQuiz] = useState<Quiz | null>(null);
+  const [options, setOptions] = useState<string[]>([]);
   const [selected, setSelected] = useState<string | null>(null);
 
   const correct = (quiz && selected !== null)
@@ -79,6 +80,14 @@ const QuizViewPage: FC<Props> = (props) => {
     return () => window.clearTimeout(tm);
   }, [key]);
 
+  useEffect(() => {
+    if (quiz) {
+      setOptions(shuffleCandidates(quiz));
+    } else {
+      setOptions([]);
+    }
+  }, [quiz])
+
   if (!quizLoaded) {
     return <div>…</div>;
   }
@@ -91,8 +100,6 @@ const QuizViewPage: FC<Props> = (props) => {
       </div>
     );
   }
-
-  const options: FourChoices = shuffleCandidates(quiz);
 
   const onAnswerClick = (option: string) => {
     if (!selected) {
