@@ -51,7 +51,7 @@ const QuizForm: FC<Prop> = (props) => {
     } else if (name === 'answer') {
       updatedQuiz.answer = value;
     } else if (name === 'candidates') {
-      updatedQuiz.candidates = value.split('\n');
+      updatedQuiz.wrongAnswers = value.split('\n');
     } else if (name === 'explanation') {
       updatedQuiz.explanation = value;
     } else {
@@ -90,7 +90,7 @@ const QuizForm: FC<Prop> = (props) => {
         <FormText
           name="candidates"
           onChange={onValueChange}
-          value={quiz.candidates.join('\n')}
+          value={quiz.wrongAnswers.join('\n')}
         ></FormText>
       </p>
       <Preview>（準備中）</Preview>

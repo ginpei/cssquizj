@@ -1,6 +1,6 @@
 export type Quiz = {
   answer: string;
-  candidates: string[];
+  wrongAnswers: string[];
   explanation: string;
   key: string;
   ownerId: string;
@@ -11,39 +11,39 @@ export type Quiz = {
 
 export const emptyQuiz: Readonly<Quiz> = {
   answer: '',
-  candidates: [],
   explanation: '',
   key: '',
   ownerId: '',
   question: '',
   type: 'four-choice-question',
+  wrongAnswers: [],
 };
 
 export const dummyQuizzes: Quiz[] = [
   {
     answer: 'red',
-    candidates: ['blue', '#00f', '#0000ff'],
     explanation: 'RGBだしねー',
     key: 'aaa',
     ownerId: 'aSe7VDZNNnb44haXH94McBrPtVu2',
     question: '青くないのは？',
     type: 'four-choice-question',
+    wrongAnswers: ['blue', '#00f', '#0000ff'],
   },
   {
     answer: 'font-size',
-    candidates: ['font-weight', 'font-style', 'size'],
     explanation: 'fontのsize',
     key: 'bbb',
     ownerId: 'aSe7VDZNNnb44haXH94McBrPtVu2',
     question: '文字の大きさ？',
     type: 'four-choice-question',
+    wrongAnswers: ['font-weight', 'font-style', 'size'],
   },
 ];
 
 export function shuffleCandidates(quiz: Quiz): string[] {
   const choices = [
     quiz.answer,
-    ...quiz.candidates,
+    ...quiz.wrongAnswers,
   ];
 
   const shuffled: string[] = [];
