@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import BasicLayout from '../complexes/BasicLayout';
 import firebase from '../middleware/firebase';
 import { fetchQuiz, isQuizOwner, Quiz, shuffleCandidates } from '../models/Quiz';
+import NiceMarkdown from '../complexes/NiceMarkdown';
 
 type AnswerOptionProps = {
   onClick: (option: string) => void;
@@ -41,7 +42,7 @@ const AnswerOption: FC<AnswerOptionProps> = (props) => {
         boxShadow: props.selected ? '0 0 0.2em #09f' : '',
       }}
     >
-      {props.option}
+      <NiceMarkdown>{props.option}</NiceMarkdown>
     </AnswerOptionOuter>
   );
 };
@@ -120,7 +121,9 @@ const QuizViewPage: FC<Props> = (props) => {
           </>
         )}
       </p>
-      <h2>{quiz.question}</h2>
+      <h2>
+        <NiceMarkdown>{quiz.question}</NiceMarkdown>
+      </h2>
       <div>
         {options.map((option, index) => (
           <AnswerOption
@@ -145,14 +148,14 @@ const QuizViewPage: FC<Props> = (props) => {
                   🥳
                 </span>
               </p>
-              <p>{quiz.explanation}</p>
+              <NiceMarkdown>{quiz.explanation}</NiceMarkdown>
             </div>
           ) : (
             <div>
               <h2>まちがい</h2>
               <p>正解は：</p>
-              <p>{quiz.answer}</p>
-              <p>{quiz.explanation}</p>
+              <NiceMarkdown>{quiz.answer}</NiceMarkdown>
+              <NiceMarkdown>{quiz.explanation}</NiceMarkdown>
             </div>
           )}
           <div>
