@@ -18,27 +18,37 @@ const BasicHeaderOuter = styled.div`
   }
 `;
 
-const BasicHeader: FC = () => (
-  <BasicHeaderOuter>
-    <div className="container">
-      <Link to="/" aria-label="Home">CSS Quiz J</Link>
-    </div>
-  </BasicHeaderOuter>
-);
 
 const BasicBody = styled.div.attrs({
   className: 'container',
 })``;
+
+const BasicFooter = styled.div`
+  border-top: dashed 1px #ccc;
+  font-size: 0.8rem;
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+`;
 
 type Prop = React.ComponentPropsWithRef<'div'>;
 
 const BasicLayout: FC<Prop> = (props) => {
   return (
     <div {...props} className={`BasicLayout ${props.className}`}>
-      <BasicHeader/>
+      <BasicHeaderOuter>
+        <div className="container">
+          <Link to="/" aria-label="Home">CSS Quiz J</Link>
+        </div>
+      </BasicHeaderOuter>
       <BasicBody>
         {props.children}
       </BasicBody>
+      <BasicFooter>
+        <div className="container">
+          Copyright &copy;
+        </div>
+      </BasicFooter>
     </div>
   );
 };
