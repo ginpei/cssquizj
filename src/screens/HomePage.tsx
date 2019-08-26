@@ -15,6 +15,14 @@ const Hero = styled.div`
   padding: 1rem;
 `;
 
+const HeroEmoji = styled.span`
+  text-shadow:
+     1px  1px 0 var(--color-theme-fg),
+     1px -1px 0 var(--color-theme-fg),
+    -1px -1px 0 var(--color-theme-fg),
+    -1px  1px 0 var(--color-theme-fg);
+`;
+
 const HomePage: FC = () => {
   const auth = firebase.auth();
 
@@ -24,6 +32,9 @@ const HomePage: FC = () => {
     setLoggedIn(Boolean(user));
   }), [auth]);
 
+  // eslint-disable-next-line jsx-a11y/accessible-emoji
+  const emoji = <HeroEmoji role="img" aria-label="">🥳</HeroEmoji>;
+
   const onLogoutClick = async () => {
     await auth.signOut();
   };
@@ -32,7 +43,7 @@ const HomePage: FC = () => {
     <div className="HomePage container">
       <Hero>
         <span>CSS Quiz J</span>
-        <span role="img" aria-label="">🥳</span>
+        {emoji}
       </Hero>
       {loggedIn ? (
         <div>
