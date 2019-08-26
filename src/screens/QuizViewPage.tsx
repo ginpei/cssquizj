@@ -16,18 +16,18 @@ const AnswerOptionOuter = styled.span.attrs({
   tabIndex: 0,
 })`
   align-items: center;
+  background-color: #f9f9f9;
   border-color: #ccc;
   border-radius: 0.2rem;
   border-style: solid;
   border-width: 2px;
+  box-sizing: border-box;
   cursor: pointer;
   display: inline-flex;
   height: 100px;
   justify-content: center;
   margin: 0.5rem;
   width: calc(50% - 1rem);
-  box-sizing: border-box;
-  background-color: #f9f9f9;
 `;
 
 const AnswerOption: FC<AnswerOptionProps> = (props) => {
