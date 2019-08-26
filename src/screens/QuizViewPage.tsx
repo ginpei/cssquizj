@@ -5,7 +5,7 @@ import BasicLayout from '../complexes/BasicLayout';
 import NiceMarkdown from '../complexes/NiceMarkdown';
 import firebase from '../middleware/firebase';
 import { moveToRandomQuiz } from '../misc';
-import { allQuizzes, fetchQuiz, isQuizOwner, Quiz, shuffleCandidates } from '../models/Quiz';
+import { allQuizzes, fetchQuiz, isQuizOwner, Quiz, shuffleCandidates, updateAllQuizzes } from '../models/Quiz';
 
 type AnswerOptionProps = {
   onClick: (option: string) => void;
@@ -108,7 +108,10 @@ const QuizViewPage: FC<Props> = (props) => {
     }
   };
 
-  const onRandomClick = () => {
+  const onRandomClick = async () => {
+    if (allQuizzes.length < 1) {
+      await updateAllQuizzes(firebase.firestore());
+    }
     moveToRandomQuiz(allQuizzes, quiz);
   };
 
