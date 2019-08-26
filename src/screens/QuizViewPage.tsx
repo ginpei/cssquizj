@@ -122,9 +122,9 @@ const QuizViewPage: FC<Props> = (props) => {
       </p>
       <h2>{quiz.question}</h2>
       <div>
-        {options.map((option) => (
+        {options.map((option, index) => (
           <AnswerOption
-            key={option}
+            key={`${index}${option}`} // TODO make sure they are unique
             onClick={onAnswerClick}
             option={option}
             selected={selected === null ? false : selected === option}

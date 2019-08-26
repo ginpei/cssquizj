@@ -69,8 +69,26 @@ function createQuizFromSnapshot(ds: firebase.firestore.DocumentSnapshot) {
   return quiz;
 }
 
+export async function saveNewQuiz(
+  firestore: firebase.firestore.Firestore,
+  user: firebase.User,
+  quiz: Quiz,
+) {
+  const { id } = quiz;
+  if (id) {
+    throw new Error('New quiz must not have ID');
+  }
+
+  const data = createDataFromQuiz(user, quiz);
+  (window as any).firestore = firestore;
+  const refQuiz = await firestore.collection('/quizzes').add(data);
+  const updatedQuiz = { ...quiz, id: refQuiz.id };
+  return updatedQuiz;
+}
+
 export async function updateQuiz(
   firestore: firebase.firestore.Firestore,
+  user: firebase.User,
   quiz: Quiz,
 ) {
   const { id } = quiz;
@@ -79,17 +97,17 @@ export async function updateQuiz(
   }
 
   const refQuiz = firestore.collection('/quizzes').doc(id);
-  const data = createDataFromQuiz(quiz);
+  const data = createDataFromQuiz(user, quiz);
   await refQuiz.set(data);
 }
 
-function createDataFromQuiz(quiz: Quiz) {
+function createDataFromQuiz(user: firebase.User, quiz: Quiz) {
   const data = {
     answer: quiz.answer,
     explanation: quiz.explanation,
     question: quiz.question,
     type: quiz.type,
-    userId: quiz.userId,
+    userId: user.uid,
     wrongAnswers1: quiz.wrongAnswers[0] || '',
     wrongAnswers2: quiz.wrongAnswers[1] || '',
     wrongAnswers3: quiz.wrongAnswers[2] || '',

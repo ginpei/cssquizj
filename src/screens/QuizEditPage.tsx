@@ -52,7 +52,7 @@ const QuizEditPage: FC<Props> = (props) => {
     );
   }
 
-  if (!isOwner) {
+  if (!user || !isOwner) {
     // TODO replace with PermissionDeniedPage
     return (
       <div>
@@ -67,7 +67,7 @@ const QuizEditPage: FC<Props> = (props) => {
 
   const onSubmit = async (quiz: Quiz) => {
     setSaving(true);
-    await updateQuiz(firebase.firestore(), quiz);
+    await updateQuiz(firebase.firestore(), user, quiz);
     setSaving(false);
   };
 
