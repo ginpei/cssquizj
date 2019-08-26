@@ -1,0 +1,24 @@
+language: node_js
+node_js:
+  - "10"
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+script:
+  - yarn check-types
+  - yarn lint
+  # - yarn test -- --coverage
+  # - yarn test -- --coverage --watchAll=false # TODO replace when Jest fixed
+before_deploy:
+  - yarn build
+deploy:
+  provider: firebase
+  project: cssquizj
+  token:
+    secure: $FIREBASE_TOKEN
+  on:
+    branch: release
+  skip_cleanup: true
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

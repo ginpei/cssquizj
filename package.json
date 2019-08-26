@@ -25,6 +25,8 @@
     "typescript": "3.5.3"
   },
   "scripts": {
+    "lint": "npx eslint src --ext .ts,.tsx",
+    "check-types": "npx tsc",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
