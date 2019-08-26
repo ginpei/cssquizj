@@ -115,6 +115,31 @@ function createDataFromQuiz(user: firebase.User, quiz: Quiz) {
   return data;
 }
 
+export function validateQuiz(quiz: Quiz): string[] {
+  const errors: (keyof Quiz)[] = [];
+
+  if (!quiz.question) {
+    errors.push('question');
+  }
+
+  if (!quiz.answer) {
+    errors.push('answer');
+  }
+
+  if (
+    quiz.wrongAnswers.length !== 3
+    || quiz.wrongAnswers.some((v) => !v)
+  ) {
+    errors.push('wrongAnswers');
+  }
+
+  if (!quiz.explanation) {
+    errors.push('explanation');
+  }
+
+  return errors;
+}
+
 export function shuffleCandidates(quiz: Quiz): string[] {
   const choices = [
     quiz.answer,

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { Quiz } from '../models/Quiz';
+import { Quiz, validateQuiz } from '../models/Quiz';
 import NiceMarkdown from '../complexes/NiceMarkdown';
 
 const FormLabel = styled.label`
@@ -110,7 +110,7 @@ const QuizForm: FC<Prop> = (props) => {
       <Preview>{quiz.explanation}</Preview>
       <p>
         <button
-          disabled={working}
+          disabled={validateQuiz(quiz).length > 0 || working}
           onClick={onSubmit}
           type="submit"
         >
