@@ -70,6 +70,34 @@ function createQuizFromSnapshot(ds: firebase.firestore.DocumentSnapshot) {
   return quiz;
 }
 
+export async function updateQuiz(
+  firestore: firebase.firestore.Firestore,
+  quiz: Quiz,
+) {
+  const { id } = quiz;
+  if (!id) {
+    throw new Error('Quiz must have ID');
+  }
+
+  const refQuiz = firestore.collection('/quizzes').doc(id);
+  const data = createDataFromQuiz(quiz);
+  await refQuiz.set(data);
+}
+
+function createDataFromQuiz(quiz: Quiz) {
+  const data = {
+    answer: quiz.answer,
+    explanation: quiz.explanation,
+    question: quiz.question,
+    type: quiz.type,
+    userId: quiz.userId,
+    wrongAnswers1: quiz.wrongAnswers[0] || '',
+    wrongAnswers2: quiz.wrongAnswers[1] || '',
+    wrongAnswers3: quiz.wrongAnswers[2] || '',
+  };
+  return data;
+}
+
 export function shuffleCandidates(quiz: Quiz): string[] {
   const choices = [
     quiz.answer,

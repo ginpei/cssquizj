@@ -32,6 +32,7 @@ const Preview: FC<{ children: string }> = (props) => (
 );
 
 type Prop = {
+  working?: boolean;
   onChange: (quiz: Quiz) => void;
   onSubmit: (quiz: Quiz) => void;
   quiz: Quiz;
@@ -39,7 +40,7 @@ type Prop = {
 };
 
 const QuizForm: FC<Prop> = (props) => {
-  const { onChange, quiz } = props;
+  const { working, onChange, quiz } = props;
 
   const onValueChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -70,6 +71,7 @@ const QuizForm: FC<Prop> = (props) => {
       <p>
         <FormLabel htmlFor="question">質問</FormLabel>
         <FormText
+          disabled={working}
           name="question"
           onChange={onValueChange}
           value={quiz.question}
@@ -79,6 +81,7 @@ const QuizForm: FC<Prop> = (props) => {
       <p>
         <FormLabel htmlFor="answer">正解</FormLabel>
         <FormText
+          disabled={working}
           name="answer"
           onChange={onValueChange}
           value={quiz.answer}
@@ -88,6 +91,7 @@ const QuizForm: FC<Prop> = (props) => {
       <p>
         <FormLabel htmlFor="candidates">不正解の選択肢（改行区切り）</FormLabel>
         <FormText
+          disabled={working}
           name="candidates"
           onChange={onValueChange}
           value={quiz.wrongAnswers.join('\n')}
@@ -97,6 +101,7 @@ const QuizForm: FC<Prop> = (props) => {
       <p>
         <FormLabel htmlFor="explanation">解説</FormLabel>
         <FormText
+          disabled={working}
           name="explanation"
           onChange={onValueChange}
           value={quiz.explanation}
@@ -105,11 +110,15 @@ const QuizForm: FC<Prop> = (props) => {
       <Preview>{quiz.explanation}</Preview>
       <p>
         <button
+          disabled={working}
           onClick={onSubmit}
           type="submit"
         >
           {props.type === 'new' ? '作成' : '更新'}
         </button>
+        {working && (
+          <span role="img" aria-label="Saving...">⏳</span>
+        )}
       </p>
     </form>
   );

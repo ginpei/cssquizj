@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import BasicLayout from '../complexes/BasicLayout';
 import QuizForm from '../independents/QuizForm';
 import firebase from '../middleware/firebase';
-import { fetchQuiz, isQuizOwner, Quiz } from '../models/Quiz';
+import { fetchQuiz, isQuizOwner, Quiz, updateQuiz } from '../models/Quiz';
 
 const DangerZone = styled.div`
   border: solid 1px tomato;
@@ -24,6 +24,7 @@ const QuizEditPage: FC<Props> = (props) => {
 
   const [quizLoaded, setQuizLoaded] = useState(false);
   const [quiz, setQuiz] = useState<Quiz | null>(null);
+  const [saving, setSaving] = useState(false);
 
   const isOwner = quiz && user && isQuizOwner(quiz, user);
 
@@ -64,8 +65,10 @@ const QuizEditPage: FC<Props> = (props) => {
     setQuiz(quiz);
   };
 
-  const onSubmit = (quiz: Quiz) => {
-    console.log('# quiz', quiz);
+  const onSubmit = async (quiz: Quiz) => {
+    setSaving(true);
+    await updateQuiz(firebase.firestore(), quiz);
+    setSaving(false);
   };
 
   return (
@@ -75,6 +78,7 @@ const QuizEditPage: FC<Props> = (props) => {
       </p>
       <h2>編集</h2>
       <QuizForm
+        working={saving}
         onChange={onChange}
         onSubmit={onSubmit}
         quiz={quiz}
