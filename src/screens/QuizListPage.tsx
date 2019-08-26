@@ -6,6 +6,8 @@ import { moveToRandomQuiz } from '../misc';
 import { Quiz, updateAllQuizzes } from '../models/Quiz';
 
 const QuizListPage: FC = () => {
+  const user = firebase.auth().currentUser;
+
   const [quizLoaded, setQuizLoaded] = useState(false);
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
 
@@ -28,6 +30,12 @@ const QuizListPage: FC = () => {
       <h2>クイズ一覧</h2>
       <div>
         <button onClick={onRandomClick}>ランダム問題</button>
+        {user && (
+          <>
+            {' | '}
+            <Link to="/quizzes/new">新規作成</Link>
+          </>
+        )}
       </div>
       {quizLoaded ? (
         <ul>
