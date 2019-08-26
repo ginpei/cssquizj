@@ -8,7 +8,6 @@ export type Quiz = {
   wrongAnswers: string[];
 };
 
-
 export const emptyQuiz: Readonly<Quiz> = {
   answer: '',
   explanation: '',
