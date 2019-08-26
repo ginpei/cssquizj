@@ -1,23 +1,26 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import BasicLayout from '../complexes/BasicLayout';
+import firebase from '../middleware/firebase';
 import { moveToRandomQuiz } from '../misc';
-import { dummyQuizzes, Quiz } from '../models/Quiz';
+import { Quiz, updateAllQuizzes } from '../models/Quiz';
 
 const QuizListPage: FC = () => {
   const [quizLoaded, setQuizLoaded] = useState(false);
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
 
   useEffect(() => {
-    const tm = window.setTimeout(() => {
-      setQuizzes(dummyQuizzes);
+    setQuizLoaded(false);
+    setQuizzes([]);
+
+    updateAllQuizzes(firebase.firestore()).then((newQuizzes) => {
       setQuizLoaded(true);
-    }, 100);
-    return () => window.clearTimeout(tm);
-  }, [quizzes]);
+      setQuizzes(newQuizzes);
+    });
+  }, []);
 
   const onRandomClick = () => {
-    moveToRandomQuiz(dummyQuizzes);
+    moveToRandomQuiz(quizzes);
   };
 
   return (

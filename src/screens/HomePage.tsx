@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import firebase from '../middleware/firebase';
 import { moveToRandomQuiz } from '../misc';
-import { dummyQuizzes } from '../models/Quiz';
+import { Quiz, updateAllQuizzes } from '../models/Quiz';
 
 const Hero = styled.div`
   background-color: var(--color-theme-bg);
@@ -29,16 +29,23 @@ const HomePage: FC = () => {
   const auth = firebase.auth();
 
   const [loggedIn, setLoggedIn] = useState(Boolean(auth.currentUser));
+  const [quizzes, setQuizzes] = useState<Quiz[]>([]);
 
   useEffect(() => auth.onAuthStateChanged((user) => {
     setLoggedIn(Boolean(user));
   }), [auth]);
 
+  useEffect(() => {
+    updateAllQuizzes(firebase.firestore()).then((newQuizzes) => {
+      setQuizzes(newQuizzes);
+    });
+  }, []);
+
   // eslint-disable-next-line jsx-a11y/accessible-emoji
   const emoji = <HeroEmoji role="img" aria-label="">🥳</HeroEmoji>;
 
   const onRandomClick = () => {
-    moveToRandomQuiz(dummyQuizzes);
+    moveToRandomQuiz(quizzes);
   };
 
   const onLogoutClick = async () => {

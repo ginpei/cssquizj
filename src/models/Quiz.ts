@@ -2,9 +2,9 @@ export type Quiz = {
   answer: string;
   explanation: string;
   id: string;
-  ownerId: string;
   question: string;
   type: 'four-choice-question';
+  userId: string;
   wrongAnswers: string[];
 };
 
@@ -13,32 +13,62 @@ export const emptyQuiz: Readonly<Quiz> = {
   answer: '',
   explanation: '',
   id: '',
-  ownerId: '',
   question: '',
   type: 'four-choice-question',
+  userId: '',
   wrongAnswers: [],
 };
 
-export const dummyQuizzes: Quiz[] = [
-  {
-    answer: 'red',
-    explanation: 'RGBだしねー',
-    id: 'aaa',
-    ownerId: 'aSe7VDZNNnb44haXH94McBrPtVu2',
-    question: '青くないのは？',
-    type: 'four-choice-question',
-    wrongAnswers: ['blue', '#00f', '#0000ff'],
-  },
-  {
-    answer: 'font-size',
-    explanation: 'fontのsize',
-    id: 'bbb',
-    ownerId: 'aSe7VDZNNnb44haXH94McBrPtVu2',
-    question: '文字の大きさ？',
-    type: 'four-choice-question',
-    wrongAnswers: ['font-weight', 'font-style', 'size'],
-  },
-];
+export const allQuizzes: Quiz[] = [];
+
+export async function updateAllQuizzes(firestore: firebase.firestore.Firestore) {
+  const coll = firestore.collection('/quizzes');
+  try {
+    const snapshot = await coll.get();
+    allQuizzes.length = 0;
+    snapshot.forEach((ds) => allQuizzes.push(createQuizFromSnapshot(ds)));
+  } catch (error) {
+    // TODO render error
+    console.error('Hey', error);
+  }
+
+  return allQuizzes;
+}
+
+export async function fetchQuiz(
+  firestore: firebase.firestore.Firestore,
+  id: string,
+): Promise<Quiz> {
+  const refQuiz = firestore.collection('/quizzes').doc(id);
+  const ssQuiz = await refQuiz.get();
+  const quiz = createQuizFromSnapshot(ssQuiz);
+  return quiz;
+}
+
+function createQuizFromSnapshot(ds: firebase.firestore.DocumentSnapshot) {
+  const data = ds.data();
+  if (!data) {
+    throw new Error('Document does not found');
+  }
+
+  const quiz: Quiz = {
+    answer: data.answer,
+    explanation: data.explanation,
+    id: ds.id,
+    question: data.question,
+    type: data.type,
+    userId: data.userId,
+    wrongAnswers: [
+      data.wrongAnswer1,
+      data.wrongAnswer2,
+      data.wrongAnswer3,
+    ],
+  };
+
+  // TODO validate here
+
+  return quiz;
+}
 
 export function shuffleCandidates(quiz: Quiz): string[] {
   const choices = [
@@ -57,5 +87,5 @@ export function shuffleCandidates(quiz: Quiz): string[] {
 }
 
 export function isQuizOwner(quiz: Quiz, user: firebase.User): boolean {
-  return quiz.ownerId === user.uid;
+  return quiz.userId === user.uid;
 }

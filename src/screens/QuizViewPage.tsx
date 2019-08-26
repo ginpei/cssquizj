@@ -3,8 +3,7 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 import BasicLayout from '../complexes/BasicLayout';
 import firebase from '../middleware/firebase';
-import { moveToRandomQuiz } from '../misc';
-import { dummyQuizzes, isQuizOwner, Quiz, shuffleCandidates } from '../models/Quiz';
+import { fetchQuiz, isQuizOwner, Quiz, shuffleCandidates } from '../models/Quiz';
 
 type AnswerOptionProps = {
   onClick: (option: string) => void;
@@ -73,11 +72,10 @@ const QuizViewPage: FC<Props> = (props) => {
     setQuiz(null);
     setSelected(null);
 
-    const tm = window.setTimeout(() => {
-      setQuiz(dummyQuizzes.find((v) => v.id === key) || null);
+    fetchQuiz(firebase.firestore(), key).then((quiz) => {
       setQuizLoaded(true);
-    }, 100);
-    return () => window.clearTimeout(tm);
+      setQuiz(quiz);
+    });
   }, [key]);
 
   useEffect(() => {
@@ -108,7 +106,7 @@ const QuizViewPage: FC<Props> = (props) => {
   };
 
   const onRandomClick = () => {
-    moveToRandomQuiz(dummyQuizzes, quiz);
+    // moveToRandomQuiz(dummyQuizzes, quiz);
   };
 
   return (

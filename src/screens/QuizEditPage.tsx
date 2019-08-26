@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import BasicLayout from '../complexes/BasicLayout';
 import QuizForm from '../independents/QuizForm';
 import firebase from '../middleware/firebase';
-import { dummyQuizzes, isQuizOwner, Quiz } from '../models/Quiz';
+import { fetchQuiz, isQuizOwner, Quiz } from '../models/Quiz';
 
 const DangerZone = styled.div`
   border: solid 1px tomato;
@@ -29,11 +29,13 @@ const QuizEditPage: FC<Props> = (props) => {
 
   // load quiz
   useEffect(() => {
-    const tm = window.setTimeout(() => {
-      setQuiz(dummyQuizzes.find((v) => v.id === key) || null);
+    setQuizLoaded(false);
+    setQuiz(null);
+
+    fetchQuiz(firebase.firestore(), key).then((quiz) => {
       setQuizLoaded(true);
-    }, 100);
-    return () => window.clearTimeout(tm);
+      setQuiz(quiz);
+    });
   }, [key]);
 
   if (!quizLoaded) {
