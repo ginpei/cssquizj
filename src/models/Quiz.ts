@@ -1,6 +1,6 @@
 export type Quiz = {
   answer: string;
-  candidates: [string, string, string];
+  candidates: string[];
   explanation: string;
   key: string;
   ownerId: string;
@@ -11,7 +11,7 @@ export type Quiz = {
 
 export const emptyQuiz: Readonly<Quiz> = {
   answer: '',
-  candidates: ['', '', ''],
+  candidates: [],
   explanation: '',
   key: '',
   ownerId: '',
@@ -41,11 +41,9 @@ export const dummyQuizzes: Quiz[] = [
 ];
 
 export function shuffleCandidates(quiz: Quiz): string[] {
-  const choices: string[] = [
+  const choices = [
     quiz.answer,
-    quiz.candidates[0],
-    quiz.candidates[1],
-    quiz.candidates[2],
+    ...quiz.candidates,
   ];
 
   const shuffled: string[] = [];
