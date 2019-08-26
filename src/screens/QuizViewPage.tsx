@@ -1,8 +1,9 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { dummyQuizzes, Quiz, FourChoices, shuffleCandidates, isQuizOwner } from '../models/Quiz';
 import styled from 'styled-components';
+import BasicLayout from '../complexes/BasicLayout';
 import firebase from '../middleware/firebase';
+import { dummyQuizzes, FourChoices, isQuizOwner, Quiz, shuffleCandidates } from '../models/Quiz';
 
 type AnswerOptionProps = {
   onClick: (option: string) => void;
@@ -95,7 +96,7 @@ const QuizViewPage: FC<Props> = (props) => {
   };
 
   return (
-    <div id="QuizViewPage">
+    <BasicLayout className="QuizViewPage">
       <p>
         <Link to="/quizzes/">← 一覧</Link>
         {isOwner && (
@@ -142,7 +143,7 @@ const QuizViewPage: FC<Props> = (props) => {
           )}
         </>
       )}
-    </div>
+    </BasicLayout>
   );
 };
 

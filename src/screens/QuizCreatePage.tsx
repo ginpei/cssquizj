@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
+import BasicLayout from '../complexes/BasicLayout';
 import QuizForm from '../independents/QuizForm';
 import firebase from '../middleware/firebase';
 import { emptyQuiz, Quiz } from '../models/Quiz';
@@ -31,7 +32,7 @@ const QuizCreatePage: FC = () => {
   }
 
   return (
-    <div id="QuizCreatePage">
+    <BasicLayout className="QuizCreatePage">
       <h2>クイズ作成</h2>
       <QuizForm
         onChange={onQuizChange}
@@ -39,7 +40,7 @@ const QuizCreatePage: FC = () => {
         quiz={quiz}
         type="new"
       />
-    </div>
+    </BasicLayout>
   );
 };
 

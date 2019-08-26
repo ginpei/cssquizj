@@ -1,9 +1,10 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
+import styled from 'styled-components';
+import BasicLayout from '../complexes/BasicLayout';
+import QuizForm from '../independents/QuizForm';
 import firebase from '../middleware/firebase';
 import { dummyQuizzes, isQuizOwner, Quiz } from '../models/Quiz';
-import QuizForm from '../independents/QuizForm';
-import styled from 'styled-components';
 
 const DangerZone = styled.div`
   border: solid 1px tomato;
@@ -66,7 +67,7 @@ const QuizEditPage: FC<Props> = (props) => {
   };
 
   return (
-    <div id="QuizEditPage">
+    <BasicLayout className="QuizEditPage">
       <p>
         <Link to={`/quizzes/${quiz.key}`}>← クイズ</Link>
       </p>
@@ -82,7 +83,7 @@ const QuizEditPage: FC<Props> = (props) => {
           <button disabled>削除</button>
         </p>
       </DangerZone>
-    </div>
+    </BasicLayout>
   );
 };
 

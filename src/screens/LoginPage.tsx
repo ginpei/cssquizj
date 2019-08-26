@@ -1,6 +1,7 @@
 import * as firebaseui from 'firebaseui';
 import React, { FC, useEffect, useState } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import BasicLayout from '../complexes/BasicLayout';
 import firebase from '../middleware/firebase';
 
 const uiConfig: firebaseui.auth.Config = {
@@ -28,13 +29,13 @@ const LoginPage: FC = () => {
   }
 
   return (
-    <div id="LoginPage">
+    <BasicLayout className="LoginPage">
       <h2>ログイン</h2>
       <StyledFirebaseAuth
         firebaseAuth={auth}
         uiConfig={uiConfig}
       />
-    </div>
+    </BasicLayout>
   );
 };
 

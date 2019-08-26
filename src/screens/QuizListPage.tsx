@@ -1,5 +1,6 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import BasicLayout from '../complexes/BasicLayout';
 import { dummyQuizzes, Quiz } from '../models/Quiz';
 
 const QuizListPage: FC = () => {
@@ -15,7 +16,7 @@ const QuizListPage: FC = () => {
   }, [quizzes]);
 
   return (
-    <div id="QuizListPage">
+    <BasicLayout className="QuizListPage">
       <h2>クイズ一覧</h2>
       {quizLoaded ? (
         <ul>
@@ -30,7 +31,7 @@ const QuizListPage: FC = () => {
       ) : (
         <div>…</div>
       )}
-    </div>
+    </BasicLayout>
   );
 };
 
