@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import BasicLayout from '../complexes/BasicLayout';
 import QuizForm from '../independents/QuizForm';
 import firebase from '../middleware/firebase';
