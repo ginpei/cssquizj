@@ -2,9 +2,10 @@ import React, { FC, useEffect, useState } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 import BasicLayout from '../complexes/BasicLayout';
-import firebase from '../middleware/firebase';
-import { fetchQuiz, isQuizOwner, Quiz, shuffleCandidates } from '../models/Quiz';
 import NiceMarkdown from '../complexes/NiceMarkdown';
+import firebase from '../middleware/firebase';
+import { moveToRandomQuiz } from '../misc';
+import { allQuizzes, fetchQuiz, isQuizOwner, Quiz, shuffleCandidates } from '../models/Quiz';
 
 type AnswerOptionProps = {
   onClick: (option: string) => void;
@@ -108,7 +109,7 @@ const QuizViewPage: FC<Props> = (props) => {
   };
 
   const onRandomClick = () => {
-    // moveToRandomQuiz(dummyQuizzes, quiz);
+    moveToRandomQuiz(allQuizzes, quiz);
   };
 
   return (
