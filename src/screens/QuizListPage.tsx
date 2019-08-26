@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import BasicLayout from '../complexes/BasicLayout';
+import { moveToRandomQuiz } from '../misc';
 import { dummyQuizzes, Quiz } from '../models/Quiz';
 
 const QuizListPage: FC = () => {
@@ -15,9 +16,16 @@ const QuizListPage: FC = () => {
     return () => window.clearTimeout(tm);
   }, [quizzes]);
 
+  const onRandomClick = () => {
+    moveToRandomQuiz(dummyQuizzes);
+  };
+
   return (
     <BasicLayout className="QuizListPage">
       <h2>クイズ一覧</h2>
+      <div>
+        <button onClick={onRandomClick}>ランダム問題</button>
+      </div>
       {quizLoaded ? (
         <ul>
           {quizzes.map((quiz) => (

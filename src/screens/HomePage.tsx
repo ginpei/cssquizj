@@ -2,6 +2,8 @@ import React, { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import firebase from '../middleware/firebase';
+import { moveToRandomQuiz } from '../misc';
+import { dummyQuizzes } from '../models/Quiz';
 
 const Hero = styled.div`
   background-color: var(--color-theme-bg);
@@ -35,6 +37,10 @@ const HomePage: FC = () => {
   // eslint-disable-next-line jsx-a11y/accessible-emoji
   const emoji = <HeroEmoji role="img" aria-label="">🥳</HeroEmoji>;
 
+  const onRandomClick = () => {
+    moveToRandomQuiz(dummyQuizzes);
+  };
+
   const onLogoutClick = async () => {
     await auth.signOut();
   };
@@ -45,6 +51,9 @@ const HomePage: FC = () => {
         <span>CSS Quiz J</span>
         {emoji}
       </Hero>
+      <div>
+        <button onClick={onRandomClick}>ランダム問題</button>
+      </div>
       {loggedIn ? (
         <div>
           <p>
