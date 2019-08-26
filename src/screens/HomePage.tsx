@@ -1,6 +1,19 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import firebase from '../middleware/firebase';
+
+const Hero = styled.div`
+  background-color: #036;
+  border-radius: 0.2rem;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+  padding: 1rem;
+  font-size: 3rem;
+  font-weight: bold;
+`;
 
 const HomePage: FC = () => {
   const auth = firebase.auth();
@@ -16,8 +29,11 @@ const HomePage: FC = () => {
   };
 
   return (
-    <div id="HomePage">
-      <h1>CSS Quiz J</h1>
+    <div className="HomePage container">
+      <Hero>
+        <span>CSS Quiz J</span>
+        <span role="img" aria-label="">🥳</span>
+      </Hero>
       {loggedIn ? (
         <div>
           <p>
