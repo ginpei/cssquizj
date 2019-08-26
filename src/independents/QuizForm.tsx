@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Quiz } from '../models/Quiz';
+import NiceMarkdown from '../complexes/NiceMarkdown';
 
 const FormLabel = styled.label`
   display: block;
@@ -10,6 +11,25 @@ const FormText = styled.textarea`
   resize: none;
   width: 100%;
 `;
+
+const PreviewOuter = styled.div`
+  font-size: 0.8em;
+  margin-left: 3em;
+`;
+
+const PreviewBody = styled.div`
+  border: solid 1px #ccc;
+  padding: 1em;
+`;
+
+const Preview: FC<{ children: string }> = (props) => (
+  <PreviewOuter>
+    <div>プレビュー</div>
+    <PreviewBody>
+      <NiceMarkdown>{props.children}</NiceMarkdown>
+    </PreviewBody>
+  </PreviewOuter>
+);
 
 type Prop = {
   onChange: (quiz: Quiz) => void;
@@ -60,6 +80,7 @@ const QuizForm: FC<Prop> = (props) => {
           value={quiz.question}
         ></FormText>
       </p>
+      <Preview>{quiz.question}</Preview>
       <p>
         <FormLabel htmlFor="answer">正解</FormLabel>
         <FormText
@@ -68,6 +89,7 @@ const QuizForm: FC<Prop> = (props) => {
           value={quiz.answer}
         ></FormText>
       </p>
+      <Preview>{quiz.answer}</Preview>
       <p>
         <FormLabel htmlFor="candidates">不正解の選択肢（改行区切り）</FormLabel>
         <FormText
@@ -76,6 +98,7 @@ const QuizForm: FC<Prop> = (props) => {
           value={quiz.candidates}
         ></FormText>
       </p>
+      <Preview>（準備中）</Preview>
       <p>
         <FormLabel htmlFor="explanation">解説</FormLabel>
         <FormText
@@ -84,6 +107,7 @@ const QuizForm: FC<Prop> = (props) => {
           value={quiz.explanation}
         ></FormText>
       </p>
+      <Preview>{quiz.explanation}</Preview>
       <p>
         <button
           onClick={onSubmit}
