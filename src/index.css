@@ -1,6 +1,13 @@
+:root {
+  --color-bg: whitesmoke;
+  --color-fg: #333;
+  --color-theme-bg: #036;
+  --color-theme-fg: #fff;
+}
+
 body {
-  background-color: #fff;
-  color: #333;
+  background-color: var(--color-bg);
+  color: var(--color-fg);
   font-family: "SF Pro JP","SF Pro Text","SF Pro Icons","Hiragino Kaku Gothic Pro","ヒラギノ角ゴ Pro W3","メイリオ","Meiryo","ＭＳ Ｐゴシック","Helvetica Neue","Helvetica","Arial",sans-serif;
   font-size: 17px;
   font-weight: 400;

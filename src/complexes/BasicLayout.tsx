@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const BasicHeaderOuter = styled.div`
-  background-color: #036;
-  color: #fff;
+  background-color: var(--color-theme-bg);
+  color: var(--color-theme-fg);
   font-size: 0.8rem;
   line-height: 1.8em;
 
   & a {
-    color: #fff;
+    color: inherit;
     text-decoration: none;
 
     &:hover {

@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import firebase from '../middleware/firebase';
 
 const Hero = styled.div`
-  background-color: #036;
+  background-color: var(--color-theme-bg);
   border-radius: 0.2rem;
-  color: #fff;
+  color: var(--color-theme-fg);
   display: flex;
   justify-content: space-between;
   margin: 1rem 0;
